@@ -1,6 +1,6 @@
 package fmi.enroll.domain;
 
-import fmi.enroll.enums.TeachingActivityType;
+import fmi.enroll.enums.discipline.TeachingActivityType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

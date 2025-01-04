@@ -1,4 +1,4 @@
-package fmi.enroll.enums;
+package fmi.enroll.enums.enrollment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

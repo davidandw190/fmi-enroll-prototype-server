@@ -1,6 +1,6 @@
 package fmi.enroll.domain;
 
-import fmi.enroll.enums.BibliographyType;
+import fmi.enroll.enums.discipline.BibliographyType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

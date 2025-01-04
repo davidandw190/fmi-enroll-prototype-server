@@ -1,6 +1,6 @@
 package fmi.enroll.domain;
 
-import fmi.enroll.enums.EnrollmentStatus;
+import fmi.enroll.enums.enrollment.EnrollmentStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package fmi.enroll.domain;
 
-import fmi.enroll.enums.LearningOutcomeCategory;
+import fmi.enroll.enums.discipline.LearningOutcomeCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

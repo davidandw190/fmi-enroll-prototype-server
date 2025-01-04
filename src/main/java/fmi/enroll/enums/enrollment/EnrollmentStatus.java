@@ -1,4 +1,4 @@
-package fmi.enroll.enums;
+package fmi.enroll.enums.enrollment;
 
 public enum EnrollmentStatus {
     PENDING,
