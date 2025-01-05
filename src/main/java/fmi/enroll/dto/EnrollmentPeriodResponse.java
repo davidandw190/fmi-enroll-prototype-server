@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Builder
 public class EnrollmentPeriodResponse {
-    private String id;
+    private Long id;
     private EnrollmentPeriodType type;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

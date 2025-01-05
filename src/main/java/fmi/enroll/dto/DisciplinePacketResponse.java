@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class DisciplinePacketResponse {
-    private String id;
+    private Long id;
     private String name;
     private String description;
 
