@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -52,9 +54,12 @@ public class EnrollmentPeriod extends BaseEntity {
     @JoinColumn(name = "enrollment_period_id")
     private List<DisciplinePacket> packets;
 
-    @ElementCollection
-    @CollectionTable(name = "enrollment_period_specializations")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "enrollment_period_specializations",
+            joinColumns = @JoinColumn(name = "enrollment_period_id")
+    )
     @Column(name = "specialization")
-    private List<String> targetSpecializations;
+    private Set<String> targetSpecializations = new HashSet<>();
 }
 

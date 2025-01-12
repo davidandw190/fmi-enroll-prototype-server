@@ -1,26 +1,24 @@
 package fmi.enroll.dto;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DisciplinePacketResponse {
-    private Long id;
+    private String id;
     private String name;
     private String description;
-
-    // when the disciplines will be studied
-    private Integer yearOfStudy;
     private Integer semester;
-
-    // eligibility requirements
+    private Integer yearOfStudy;
     private Integer targetYearOfStudy;
     private Integer targetSemester;
-
     private Integer maxChoices;
     private List<String> disciplines;
     private Integer totalCredits;
