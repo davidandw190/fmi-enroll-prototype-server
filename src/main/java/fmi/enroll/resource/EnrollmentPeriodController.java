@@ -1,5 +1,6 @@
 package fmi.enroll.resource;
 
+import fmi.enroll.dto.ElectivePacketsResponse;
 import fmi.enroll.dto.EnrollmentPeriodResponse;
 import fmi.enroll.service.EnrollmentPeriodService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,26 @@ public class EnrollmentPeriodController {
 
         log.info("Preparing response with {} periods", periods.size());
         return ResponseEntity.ok(periods);
+    }
+
+    @GetMapping("/{periodId}/elective-disciplines")
+    public ResponseEntity<EnrollmentPeriodResponse> getElectiveDisciplinesPeriod(
+            @PathVariable Long periodId
+    ) {
+        log.info("Fetching elective disciplines period with id: {}", periodId);
+        EnrollmentPeriodResponse period = enrollmentPeriodService.findElectiveDisciplinesPeriod(periodId);
+        log.info("Found elective disciplines period: type={}, packets={}",
+                period.getType(), period.getPackets().size());
+        return ResponseEntity.ok(period);
+    }
+
+    @GetMapping("/{periodId}/packets")
+    public ResponseEntity<ElectivePacketsResponse> getElectivePackets(
+            @PathVariable Long periodId
+    ) {
+        log.info("Fetching packets with disciplines for period id: {}", periodId);
+        ElectivePacketsResponse packetsResponse = enrollmentPeriodService.findElectivePackets(periodId);
+        log.info("Found {} packets with their disciplines", packetsResponse.getPackets().size());
+        return ResponseEntity.ok(packetsResponse);
     }
 }
