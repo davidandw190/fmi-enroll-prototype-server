@@ -9,5 +9,4 @@ public class FmiEnrollPrototypeServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(FmiEnrollPrototypeServerApplication.class, args);
     }
-
 }
