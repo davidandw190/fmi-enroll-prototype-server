@@ -11,11 +11,11 @@ import java.util.List;
 @Setter
 @Table(name = "bibliographies")
 public class Bibliography extends BaseEntity {
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "bibliography_id")
     private List<BibliographyEntry> required;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "bibliography_id")
     private List<BibliographyEntry> recommended;
 

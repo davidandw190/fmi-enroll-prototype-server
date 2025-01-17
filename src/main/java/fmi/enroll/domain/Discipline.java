@@ -7,7 +7,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -46,7 +49,8 @@ public class Discipline extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "discipline_id")
-    private List<TeachingActivity> teachingActivities;
+    @OrderColumn(name = "teaching_activity_order")
+    private List<TeachingActivity> teachingActivities = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "time_allocation_id")
@@ -56,17 +60,14 @@ public class Discipline extends BaseEntity {
     @JoinColumn(name = "weekly_hours_id")
     private WeeklyHours weeklyHours;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "discipline_id")
-    private List<ContentModule> courseContent;
+    @OneToMany(mappedBy = "discipline", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContentModule> courseContent = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "discipline_id")
-    private List<ContentModule> seminarContent;
+    @OneToMany(mappedBy = "discipline", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContentModule> seminarContent = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "discipline_id")
-    private List<ContentModule> laboratoryContent;
+    @OneToMany(mappedBy = "discipline", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContentModule> laboratoryContent = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "bibliography_id")
@@ -76,11 +77,10 @@ public class Discipline extends BaseEntity {
     @JoinColumn(name = "prerequisites_id")
     private Prerequisites prerequisites;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "discipline_id")
-    private List<LearningOutcome> learningOutcomes;
+    @OneToMany(mappedBy = "discipline", cascade = CascadeType.ALL, fetch = FetchType.EAGER,  orphanRemoval = true)
+    private List<LearningOutcome> learningOutcomes = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "evaluation_system_id")
     private EvaluationSystem evaluationSystem;
 
@@ -88,5 +88,6 @@ public class Discipline extends BaseEntity {
     private Integer maxEnrollmentSpots;
     private Integer currentEnrollmentCount;
     private Integer waitlistLimit;
+
 }
 

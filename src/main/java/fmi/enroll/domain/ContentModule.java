@@ -1,5 +1,6 @@
 package fmi.enroll.domain;
 
+import fmi.enroll.enums.discipline.ContentModuleType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +30,16 @@ public class ContentModule extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "content_module_id")
-    private List<BibliographyEntry> references;
+    private List<BibliographyEntry> bibliographyEntries;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ContentModuleType type;
+
+    @Setter
+    @Getter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discipline_id", nullable = false)
+    private Discipline discipline;
+
 }

@@ -14,10 +14,13 @@ public class WeeklyHours extends BaseEntity {
     @Column(nullable = false)
     private Integer course;
 
+    @Column(nullable = false)
     private Integer seminar;
 
+    @Column(nullable = false)
     private Integer laboratory;
 
+    @Column(nullable = false)
     private Integer project;
 
     @Column(nullable = false)

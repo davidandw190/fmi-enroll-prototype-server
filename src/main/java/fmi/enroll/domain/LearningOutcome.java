@@ -23,4 +23,8 @@ public class LearningOutcome extends BaseEntity {
     @CollectionTable(name = "learning_outcome_details")
     @Column(name = "outcome")
     private List<String> outcomes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discipline_id", nullable = false)
+    private Discipline discipline;
 }
