@@ -41,11 +41,13 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
 
                 Discipline distributedSystems = createAndSaveDistributedSystemsDiscipline(teachers.get(0));
                 Discipline softwareArchitecture = createAndSaveSoftwareArchitectureDiscipline(teachers.get(1));
-                Discipline progressiveWebApps = createAndSaveProgressiveWebAppsDiscipline(teachers.get(0));
+                Discipline progressiveWebApps = createAndSaveProgressiveWebAppsDiscipline(teachers.get(2));
                 Discipline devopsAndStuff = createAndSaveDevopsAndStuffDiscipline(teachers.get(1));
                 Discipline anotherExample = createAndSaveAnotherExampleDiscipline(teachers.get(0));
-                Discipline example1 = createAndSaveExample1Discipline(teachers.get(1));
+                Discipline example1 = createAndSaveExample1Discipline(teachers.get(2));
                 Discipline example2 = createAndSaveExample2Discipline(teachers.get(0));
+                Discipline example3 = createAndSaveExample3Discipline(teachers.get(2));
+                Discipline example4 = createAndSaveExample4Discipline(teachers.get(1));
 
 
 
@@ -57,7 +59,10 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
                                 devopsAndStuff.getId().toString(),
                                 anotherExample.getId().toString(),
                                 example1.getId().toString(),
-                                example2.getId().toString())
+                                example2.getId().toString(),
+                                example1.getId().toString(),
+                                example2.getId().toString()
+                        )
                 );
 
                 createAndSaveEnrollmentPeriod(
@@ -111,6 +116,16 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
 
     private Discipline createAndSaveExample2Discipline(Teacher teacher) {
         Discipline discipline = createExample2Discipline(teacher);
+        return disciplineRepository.save(discipline);
+    }
+
+    private Discipline createAndSaveExample3Discipline(Teacher teacher) {
+        Discipline discipline = createExample3Discipline(teacher);
+        return disciplineRepository.save(discipline);
+    }
+
+    private Discipline createAndSaveExample4Discipline(Teacher teacher) {
+        Discipline discipline = createExample4Discipline(teacher);
         return disciplineRepository.save(discipline);
     }
 
@@ -1048,13 +1063,271 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
         return period;
     }
 
+    private Discipline createExample3Discipline(Teacher teacher) {
+        Discipline discipline = new Discipline();
+        discipline.setCode("IE074");
+        discipline.setName("Example3 Discipline");
+        discipline.setDescription("Learn to build modern Progressive Web Applications (PWAs) that work offline, support push notifications, and provide native-like experiences. Focus on performance optimization and modern web capabilities.");
+        discipline.setType(DisciplineType.OPTIONAL);
+        discipline.setSemester(2);
+        discipline.setYearOfStudy(3);
+        discipline.setCredits(4);
+        discipline.setAssessmentType(AssessmentType.EXAM);
+        discipline.setLanguage(TeachingLanguage.EN);
+        discipline.setMaxEnrollmentSpots(75);
+        discipline.setCurrentEnrollmentCount(58);
+        discipline.setWaitlistLimit(10);
+        List<TeachingActivity> activities = createTeachingActivities(teacher, discipline);
+        discipline.setTeachingActivities(activities);
+
+        WeeklyHours weeklyHours = new WeeklyHours();
+        weeklyHours.setCourse(2);
+        weeklyHours.setLaboratory(2);
+        weeklyHours.setSeminar(0);
+        weeklyHours.setProject(0);
+        weeklyHours.setTotal(2);
+        discipline.setWeeklyHours(weeklyHours);
+
+        TimeAllocation timeAllocation = new TimeAllocation();
+        timeAllocation.setIndividualStudyHours(28);
+        timeAllocation.setDocumentationHours(15);
+        timeAllocation.setPreparationHours(15);
+        timeAllocation.setTutoringHours(8);
+        timeAllocation.setExaminationHours(4);
+        timeAllocation.setOtherActivitiesHours(6);
+        timeAllocation.setTotalSemesterHours(90);
+        discipline.setTimeAllocation(timeAllocation);
+
+        List<ContentModule> courseContent = createCourseContent(discipline);
+        discipline.setCourseContent(courseContent);
+
+        List<ContentModule> labContent = createLabContent(discipline);
+        discipline.setLaboratoryContent(labContent);
+
+        Bibliography bibliography = new Bibliography();
+
+        List<BibliographyEntry> requiredEntries = new ArrayList<>();
+
+        BibliographyEntry buildingPWA = new BibliographyEntry();
+        buildingPWA.setTitle("Building Progressive Web Applications: Bringing the Power of Native to the Browser");
+        buildingPWA.setAuthors("Tal Ater");
+        buildingPWA.setPublicationYear(2023);
+        buildingPWA.setType(BibliographyType.BOOK);
+        buildingPWA.setIsbn("978-1-491-96165-0");
+        requiredEntries.add(buildingPWA);
+
+        BibliographyEntry pwaInAction = new BibliographyEntry();
+        pwaInAction.setTitle("Progressive Web Apps in Action");
+        pwaInAction.setAuthors("Dean Alan Hume");
+        pwaInAction.setPublicationYear(2024);
+        pwaInAction.setType(BibliographyType.BOOK);
+        pwaInAction.setIsbn("978-1-617-29465-3");
+        requiredEntries.add(pwaInAction);
+
+        List<BibliographyEntry> recommendedEntries = new ArrayList<>();
+
+        BibliographyEntry highPerformance = new BibliographyEntry();
+        highPerformance.setTitle("High Performance Mobile Web");
+        highPerformance.setAuthors("Maximiliano Firtman");
+        highPerformance.setPublicationYear(2023);
+        highPerformance.setType(BibliographyType.BOOK);
+        recommendedEntries.add(highPerformance);
+
+        BibliographyEntry webPerformance = new BibliographyEntry();
+        webPerformance.setTitle("Web Performance in Action");
+        webPerformance.setAuthors("Jeremy Wagner");
+        webPerformance.setPublicationYear(2023);
+        webPerformance.setType(BibliographyType.BOOK);
+        recommendedEntries.add(webPerformance);
+
+        List<BibliographyEntry> onlineEntries = new ArrayList<>();
+
+        BibliographyEntry googlePWA = new BibliographyEntry();
+        googlePWA.setTitle("Progressive Web Apps Training");
+        googlePWA.setAuthors("Google Developers");
+        googlePWA.setType(BibliographyType.ONLINE);
+        googlePWA.setUrl("https://web.dev/learn/pwa/");
+        onlineEntries.add(googlePWA);
+
+        BibliographyEntry mozillaPWA = new BibliographyEntry();
+        mozillaPWA.setTitle("Progressive Web Apps - MDN Web Docs");
+        mozillaPWA.setAuthors("Mozilla Developer Network");
+        mozillaPWA.setType(BibliographyType.ONLINE);
+        mozillaPWA.setUrl("https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps");
+        onlineEntries.add(mozillaPWA);
+
+        BibliographyEntry workboxDocs = new BibliographyEntry();
+        workboxDocs.setTitle("Workbox Documentation");
+        workboxDocs.setAuthors("Google Chrome Team");
+        workboxDocs.setType(BibliographyType.ONLINE);
+        workboxDocs.setUrl("https://developers.google.com/web/tools/workbox");
+        onlineEntries.add(workboxDocs);
+
+        bibliography.setRequired(requiredEntries);
+        bibliography.setRecommended(recommendedEntries);
+        bibliography.setOnline(onlineEntries);
+
+        discipline.setBibliography(bibliography);
+
+        Prerequisites prerequisites = new Prerequisites();
+        prerequisites.setRequiredSkills(Arrays.asList(
+                "Basic programming knowledge",
+                "Understanding of web protocols",
+                "JavaScript fundamentals"
+        ));
+        prerequisites.setRecommendations(Arrays.asList(
+                "Previous web development experience",
+                "Basic understanding of distributed systems"
+        ));
+        discipline.setPrerequisites(prerequisites);
+
+        List<LearningOutcome> outcomes = createLearningOutcomes();
+        outcomes.forEach(outcome -> outcome.setDiscipline(discipline));
+        discipline.setLearningOutcomes(outcomes);
+
+        EvaluationSystem evaluationSystem = createEvaluationSystem();
+        discipline.setEvaluationSystem(evaluationSystem);
+
+        return discipline;
+    }
+
+    private Discipline createExample4Discipline(Teacher teacher) {
+        Discipline discipline = new Discipline();
+        discipline.setCode("IE621");
+        discipline.setName("Example4 Discipline");
+        discipline.setDescription("Learn to build modern Progressive Web Applications (PWAs) that work offline, support push notifications, and provide native-like experiences. Focus on performance optimization and modern web capabilities.");
+        discipline.setType(DisciplineType.OPTIONAL);
+        discipline.setSemester(2);
+        discipline.setYearOfStudy(3);
+        discipline.setCredits(4);
+        discipline.setAssessmentType(AssessmentType.COLLOQUIUM);
+        discipline.setLanguage(TeachingLanguage.EN);
+        discipline.setMaxEnrollmentSpots(75);
+        discipline.setCurrentEnrollmentCount(58);
+        discipline.setWaitlistLimit(10);
+        List<TeachingActivity> activities = createTeachingActivities(teacher, discipline);
+        discipline.setTeachingActivities(activities);
+
+        WeeklyHours weeklyHours = new WeeklyHours();
+        weeklyHours.setCourse(2);
+        weeklyHours.setLaboratory(2);
+        weeklyHours.setSeminar(0);
+        weeklyHours.setProject(0);
+        weeklyHours.setTotal(2);
+        discipline.setWeeklyHours(weeklyHours);
+
+        TimeAllocation timeAllocation = new TimeAllocation();
+        timeAllocation.setIndividualStudyHours(28);
+        timeAllocation.setDocumentationHours(15);
+        timeAllocation.setPreparationHours(15);
+        timeAllocation.setTutoringHours(8);
+        timeAllocation.setExaminationHours(4);
+        timeAllocation.setOtherActivitiesHours(6);
+        timeAllocation.setTotalSemesterHours(90);
+        discipline.setTimeAllocation(timeAllocation);
+
+        List<ContentModule> courseContent = createCourseContent(discipline);
+        discipline.setCourseContent(courseContent);
+
+        List<ContentModule> labContent = createLabContent(discipline);
+        discipline.setLaboratoryContent(labContent);
+
+        Bibliography bibliography = new Bibliography();
+
+        List<BibliographyEntry> requiredEntries = new ArrayList<>();
+
+        BibliographyEntry buildingPWA = new BibliographyEntry();
+        buildingPWA.setTitle("Building Progressive Web Applications: Bringing the Power of Native to the Browser");
+        buildingPWA.setAuthors("Tal Ater");
+        buildingPWA.setPublicationYear(2023);
+        buildingPWA.setType(BibliographyType.BOOK);
+        buildingPWA.setIsbn("978-1-491-96165-0");
+        requiredEntries.add(buildingPWA);
+
+        BibliographyEntry pwaInAction = new BibliographyEntry();
+        pwaInAction.setTitle("Progressive Web Apps in Action");
+        pwaInAction.setAuthors("Dean Alan Hume");
+        pwaInAction.setPublicationYear(2024);
+        pwaInAction.setType(BibliographyType.BOOK);
+        pwaInAction.setIsbn("978-1-617-29465-3");
+        requiredEntries.add(pwaInAction);
+
+        List<BibliographyEntry> recommendedEntries = new ArrayList<>();
+
+        BibliographyEntry highPerformance = new BibliographyEntry();
+        highPerformance.setTitle("High Performance Mobile Web");
+        highPerformance.setAuthors("Maximiliano Firtman");
+        highPerformance.setPublicationYear(2023);
+        highPerformance.setType(BibliographyType.BOOK);
+        recommendedEntries.add(highPerformance);
+
+        BibliographyEntry webPerformance = new BibliographyEntry();
+        webPerformance.setTitle("Web Performance in Action");
+        webPerformance.setAuthors("Jeremy Wagner");
+        webPerformance.setPublicationYear(2023);
+        webPerformance.setType(BibliographyType.BOOK);
+        recommendedEntries.add(webPerformance);
+
+        List<BibliographyEntry> onlineEntries = new ArrayList<>();
+
+        BibliographyEntry googlePWA = new BibliographyEntry();
+        googlePWA.setTitle("Progressive Web Apps Training");
+        googlePWA.setAuthors("Google Developers");
+        googlePWA.setType(BibliographyType.ONLINE);
+        googlePWA.setUrl("https://web.dev/learn/pwa/");
+        onlineEntries.add(googlePWA);
+
+        BibliographyEntry mozillaPWA = new BibliographyEntry();
+        mozillaPWA.setTitle("Progressive Web Apps - MDN Web Docs");
+        mozillaPWA.setAuthors("Mozilla Developer Network");
+        mozillaPWA.setType(BibliographyType.ONLINE);
+        mozillaPWA.setUrl("https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps");
+        onlineEntries.add(mozillaPWA);
+
+        BibliographyEntry workboxDocs = new BibliographyEntry();
+        workboxDocs.setTitle("Workbox Documentation");
+        workboxDocs.setAuthors("Google Chrome Team");
+        workboxDocs.setType(BibliographyType.ONLINE);
+        workboxDocs.setUrl("https://developers.google.com/web/tools/workbox");
+        onlineEntries.add(workboxDocs);
+
+        bibliography.setRequired(requiredEntries);
+        bibliography.setRecommended(recommendedEntries);
+        bibliography.setOnline(onlineEntries);
+
+        discipline.setBibliography(bibliography);
+
+        Prerequisites prerequisites = new Prerequisites();
+        prerequisites.setRequiredSkills(Arrays.asList(
+                "Basic programming knowledge",
+                "Understanding of web protocols",
+                "JavaScript fundamentals"
+        ));
+        prerequisites.setRecommendations(Arrays.asList(
+                "Previous web development experience",
+                "Basic understanding of distributed systems"
+        ));
+        discipline.setPrerequisites(prerequisites);
+
+        List<LearningOutcome> outcomes = createLearningOutcomes();
+        outcomes.forEach(outcome -> outcome.setDiscipline(discipline));
+        discipline.setLearningOutcomes(outcomes);
+
+        EvaluationSystem evaluationSystem = createEvaluationSystem();
+        discipline.setEvaluationSystem(evaluationSystem);
+
+        return discipline;
+    }
+
     private List<DisciplinePacket> createElectivePackets(String distributedSystemsId,
                                                          String softwareArchitectureId,
                                                          String progressiveWebAppsId,
                                                          String devopsAndStuffId,
                                                          String anotherExampleId,
                                                          String example1Id,
-                                                         String example2Id
+                                                         String example2Id,
+                                                         String example3Id,
+                                                         String example4Id
                                                          ) {
         DisciplinePacket packet1 = createPacket(
                 "Elective Packet 1",
@@ -1065,7 +1338,9 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
                         softwareArchitectureId,
                         progressiveWebAppsId,
                         devopsAndStuffId,
-                        anotherExampleId
+                        anotherExampleId,
+                        example3Id,
+                        example4Id
                 ),
                 createPrerequisites(
                         Arrays.asList(
@@ -1128,14 +1403,14 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
 
     private List<Teacher> createAndSaveTeachers() {
         Teacher teacher1 = new Teacher();
-        teacher1.setFirstName("Elena");
-        teacher1.setLastName("Lasconi");
-        teacher1.setEmail("elena.lasconi@e-uvt.ro");
+        teacher1.setFirstName("Nicusor");
+        teacher1.setLastName("Dan");
+        teacher1.setEmail("nicusor.dan@e-uvt.ro");
         teacher1.setDepartment("Computer Science");
 
         AcademicTitle title1 = new AcademicTitle();
-        title1.setTitle("Professor");
-        title1.setAbbreviation("Prof.");
+        title1.setTitle("Profesor Doctor");
+        title1.setAbbreviation("Prof. Dr.");
         teacher1.setAcademicTitle(title1);
 
         Teacher teacher2 = new Teacher();
@@ -1149,7 +1424,18 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
         title2.setAbbreviation("Lect. Dr.");
         teacher2.setAcademicTitle(title2);
 
-        return teacherRepository.saveAll(Arrays.asList(teacher1, teacher2));
+        Teacher teacher3 = new Teacher();
+        teacher3.setFirstName("Gabriel");
+        teacher3.setLastName("Iuhasz");
+        teacher3.setEmail("gabriel.iuhasz@e-uvt.ro");
+        teacher3.setDepartment("Computer Science");
+
+        AcademicTitle title3 = new AcademicTitle();
+        title3.setTitle("Lector Doctor");
+        title3.setAbbreviation("Lect. Dr.");
+        teacher3.setAcademicTitle(title3);
+
+        return teacherRepository.saveAll(Arrays.asList(teacher1, teacher2, teacher3));
     }
 
     private void createAndSaveEnrollmentPeriod(
