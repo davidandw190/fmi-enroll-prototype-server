@@ -60,8 +60,8 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
                                 anotherExample.getId().toString(),
                                 example1.getId().toString(),
                                 example2.getId().toString(),
-                                example1.getId().toString(),
-                                example2.getId().toString()
+                                example3.getId().toString(),
+                                example4.getId().toString()
                         )
                 );
 
@@ -1328,7 +1328,7 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
                                                          String example2Id,
                                                          String example3Id,
                                                          String example4Id
-                                                         ) {
+    ) {
         DisciplinePacket packet1 = createPacket(
                 "Elective Packet 1",
                 "Advanced development techniques and frameworks",
