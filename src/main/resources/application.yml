@@ -12,6 +12,32 @@ spring:
         use_sql_comments: true
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/realms/fmi-enroll/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8180/realms/fmi-enroll
+      client:
+        registration:
+          keycloak:
+            client-id: fmi-enroll-backend
+            client-secret: YOUR_CLIENT_SECRET_HERE  # Replace with actual secret from Keycloak
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/fmi-enroll
+            token-uri: http://localhost:8180/realms/fmi-enroll/protocol/openid-connect/token
+            authorization-uri: http://localhost:8180/realms/fmi-enroll/protocol/openid-connect/auth
+            jwk-set-uri: http://localhost:8180/realms/fmi-enroll/protocol/openid-connect/certs
+            user-info-uri: http://localhost:8180/realms/fmi-enroll/protocol/openid-connect/userinfo
+
+
+
+
+
 # server configuration
 server:
   port: ${SERVER_PORT:8080}
@@ -24,6 +50,15 @@ server:
 logging:
   level:
     root: ${ROOT_LOG_LEVEL:INFO}
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
     fmi.enroll: ${APP_LOG_LEVEL:DEBUG}
     org.hibernate.SQL: ${HIBERNATE_LOG_LEVEL:DEBUG}
     org.hibernate.type.descriptor.sql.BasicBinder: ${SQL_BIND_LOG_LEVEL:TRACE}
+
+keycloak:
+  auth-server-url: http://localhost:8180
+  realm: fmi-enroll
+  resource: fmi-enroll-backend
+  credentials:
+    secret: ${keycloak.secret}

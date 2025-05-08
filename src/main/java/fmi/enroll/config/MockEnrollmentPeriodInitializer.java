@@ -1049,8 +1049,8 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
     private EnrollmentPeriod createElectivePeriod(List<Teacher> teachers) {
         EnrollmentPeriod period = new EnrollmentPeriod();
         period.setType(EnrollmentPeriodType.ELECTIVE_DISCIPLINES);
-        period.setStartDate(LocalDateTime.of(2025, 1, 1, 0, 0));
-        period.setEndDate(LocalDateTime.of(2025, 2, 1, 23, 59));
+        period.setStartDate(LocalDateTime.of(2025, 4, 27, 0, 0));
+        period.setEndDate(LocalDateTime.of(2025, 5, 27, 23, 59));
         period.setSemester(2);
         period.setYearOfStudy(3);
         period.setTargetYearOfStudy(3);
@@ -1471,8 +1471,8 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
     private EnrollmentPeriod createComplementaryPeriod() {
         EnrollmentPeriod period = new EnrollmentPeriod();
         period.setType(EnrollmentPeriodType.COMPLEMENTARY_DISCIPLINES);
-        period.setStartDate(LocalDateTime.of(2025, 2, 2, 0, 0));
-        period.setEndDate(LocalDateTime.of(2025, 2, 15, 23, 59));
+        period.setStartDate(LocalDateTime.of(2025, 5, 11, 0, 0));
+        period.setEndDate(LocalDateTime.of(2025, 6, 27, 23, 59));
         period.setSemester(2);
         period.setYearOfStudy(3);
         period.setTargetYearOfStudy(3);
@@ -1515,7 +1515,7 @@ public class MockEnrollmentPeriodInitializer implements CommandLineRunner {
     private EnrollmentPeriod createThesisPeriod() {
         EnrollmentPeriod period = new EnrollmentPeriod();
         period.setType(EnrollmentPeriodType.THESIS_REGISTRATION);
-        period.setStartDate(LocalDateTime.of(2024, 12, 1, 0, 0));
+        period.setStartDate(LocalDateTime.of(2024, 9, 1, 0, 0));
         period.setEndDate(LocalDateTime.of(2024, 12, 15, 23, 59));
         period.setSemester(2);
         period.setYearOfStudy(3);
